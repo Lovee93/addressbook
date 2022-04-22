@@ -10,6 +10,8 @@ function App() {
   const [masterEmployees, setMasterEmployees] = useState("");
   const [searchInput, setSearchInput] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [filterBy, setFilterBy] = useState("Name");
+  const [sortBy, setSortBy] = useState("")
 
   const [employeeToDelete, setEmployeeToDelete] = useState("")
 
@@ -23,9 +25,42 @@ function App() {
     toggleModal();
   }
 
-  const handleFilter = () => {
-    
+  const handleFilter = (e) => {
+    setFilterBy(e)
   }
+
+  const handleSort = () => {
+    setSortBy(prevState => {
+      if(prevState === "" || prevState === "up") {
+        setEmployees(sortEmployeesAsc())
+        return "down";
+      }
+      else if(prevState === "down") {
+        setEmployees(sortEmployeesDesc())
+        return "up"
+      }
+    })
+  }
+
+  const sortEmployeesAsc = () => {
+      return employees.sort((a,b) => {
+        if(a.name > b.name)
+          return 1;
+        else if(a.name < b.name)
+          return -1;
+        return 0;
+      });
+    }
+  const sortEmployeesDesc = () => {
+      return employees.sort((a,b) => {
+        if(a.name < b.name)
+          return 1;
+        else if(a.name > b.name)
+          return -1;
+        return 0;
+      });
+    }
+  
 
   const getAllEmployees = () => {
     return fetch("https://jsonplaceholder.typicode.com/users")
@@ -36,16 +71,19 @@ function App() {
     })
   }
 
-  //console.log(employees)
-
   useEffect(() => {
     if(searchInput !== "") {
-      setEmployees(masterEmployees.filter(employee => employee.name.toLowerCase().includes(searchInput)))
+      if(filterBy === "Company") {
+        setEmployees(masterEmployees.filter(employee => employee.company.name.toLowerCase().includes(searchInput)))
+      } 
+      else{
+        setEmployees(masterEmployees.filter(employee => employee.name.toLowerCase().includes(searchInput)))
+      }
     }
     else {
       getAllEmployees().then(res => setEmployees(res));
     }
-  }, [searchInput])
+  }, [searchInput, filterBy])
 
   // useEffect(() => {
   //   getAllEmployees().then(res => setEmployees(res));
@@ -57,7 +95,14 @@ function App() {
         Address Book
       </header>
       <div>
-        <SearchField searchInput={searchInput} setSearchInput={setSearchInput} />
+        <SearchField 
+          searchInput={searchInput} 
+          setSearchInput={setSearchInput} 
+          filterBy={filterBy} 
+          handleFilter={handleFilter} 
+          sortBy={sortBy}
+          handleSort={handleSort}
+        />
         <EmployeeCard employees={employees} toggleModal={toggleModal} />
         { showModal && 
           <DeleteModal showModal={showModal} toggleModal={toggleModal} handleDelete={handleDelete} />

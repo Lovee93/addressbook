@@ -7,10 +7,10 @@ function EmployeeCard(props) {
     //console.log(showModal)
     return (
         <Container>
-            <Row>
+            <Row className='justify-content-center'>
                 {
                     employees !== "" && employees.map(employee => 
-                    <Col key={employee.id}>
+                    <Col key={employee.id} className="col-auto">
                         <Card>
                             <Card.Body>
                                 <Card.Title>{employee.name}</Card.Title>
