@@ -3,7 +3,15 @@ import { Row, Col, Button, Container, Dropdown } from 'react-bootstrap';
 import { Funnel, SortAlphaDown, SortAlphaUp } from 'react-bootstrap-icons';
 
 function SearchField(props) {
-    const {searchInput, setSearchInput, filterBy, handleFilter, sortBy, handleSort} = props;
+    const {
+        searchInput, 
+        setSearchInput, 
+        filterBy, 
+        handleFilter, 
+        sortBy, 
+        handleSort,
+        toggleAddModal
+    } = props;
 
     return (
         <Container>
@@ -40,6 +48,9 @@ function SearchField(props) {
                             <SortAlphaDown></SortAlphaDown>
                     }
                 </Button>
+            </Col>
+            <Col>
+                <Button variant="success" onClick={toggleAddModal}>Add Employee</Button>
             </Col>
             </Row>
         </Container>

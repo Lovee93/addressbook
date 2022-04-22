@@ -4,25 +4,59 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import EmployeeCard from './components/EmployeeCard';
 import DeleteModal from './components/DeleteModal';
+import AddModal from './components/AddModal';
 
 function App() {
   const [employees, setEmployees] = useState("");
   const [masterEmployees, setMasterEmployees] = useState("");
   const [searchInput, setSearchInput] = useState("");
-  const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
   const [filterBy, setFilterBy] = useState("Name");
   const [sortBy, setSortBy] = useState("")
 
   const [employeeToDelete, setEmployeeToDelete] = useState("")
 
-  const toggleModal = (employee) => {
+  const toggleDeleteModal = (employee) => {
     setEmployeeToDelete(employee)
-    setShowModal(!showModal)
+    setShowDeleteModal(!showDeleteModal)
   }
 
+  const toggleAddModal = () => {
+    setShowAddModal(!showAddModal)
+  }
+  
   const handleDelete = () => {
     setEmployees(employees.filter(employee => employee.id !== employeeToDelete))
-    toggleModal();
+    toggleDeleteModal();
+  }
+
+  const handleAdd = (employeeName, employeeCompany, employeeCatchphrase, employeePhone,) => {
+    var newEmployee = {
+      id: employees.length + 1,
+      name: employeeName,
+      username: "somethings",
+      email: "abc@xyz.tv",
+      address: {
+        street: "Victor Plains",
+        suite: "Suite 879",
+        city: "Wisokyburgh",
+        zipcode: "90566-7771",
+        geo: {
+          lat: "-43.9509",
+          lng: "-34.4618"
+        }
+      },
+      phone: employeePhone,
+      website: "something.net",
+      company: {
+        name: employeeCompany,
+        catchPhrase: employeeCatchphrase,
+        bs: "synergize scalable supply-chains" 
+      }
+    }
+    setEmployees(prevState => {return [...prevState, newEmployee]})
+    toggleAddModal();
   }
 
   const handleFilter = (e) => {
@@ -83,6 +117,7 @@ function App() {
     else {
       getAllEmployees().then(res => setEmployees(res));
     }
+    setSortBy("")
   }, [searchInput, filterBy])
 
   // useEffect(() => {
@@ -102,10 +137,14 @@ function App() {
           handleFilter={handleFilter} 
           sortBy={sortBy}
           handleSort={handleSort}
+          toggleAddModal={toggleAddModal}
         />
-        <EmployeeCard employees={employees} toggleModal={toggleModal} />
-        { showModal && 
-          <DeleteModal showModal={showModal} toggleModal={toggleModal} handleDelete={handleDelete} />
+        <EmployeeCard employees={employees} toggleModal={toggleDeleteModal} />
+        { showDeleteModal && 
+          <DeleteModal showModal={showDeleteModal} toggleModal={toggleDeleteModal} handleDelete={handleDelete} />
+        }
+        { showAddModal && 
+          <AddModal showModal={showAddModal} toggleModal={toggleAddModal} handleAdd={handleAdd} />
         }
       </div>
     </div>
