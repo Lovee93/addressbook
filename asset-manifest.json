@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/addressbook/static/css/main.d5fcf2c1.css",
+    "main.js": "/addressbook/static/js/main.1f009ef9.js",
+    "static/js/787.1ed39a58.chunk.js": "/addressbook/static/js/787.1ed39a58.chunk.js",
+    "index.html": "/addressbook/index.html",
+    "main.d5fcf2c1.css.map": "/addressbook/static/css/main.d5fcf2c1.css.map",
+    "main.1f009ef9.js.map": "/addressbook/static/js/main.1f009ef9.js.map",
+    "787.1ed39a58.chunk.js.map": "/addressbook/static/js/787.1ed39a58.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d5fcf2c1.css",
+    "static/js/main.1f009ef9.js"
+  ]
+}
