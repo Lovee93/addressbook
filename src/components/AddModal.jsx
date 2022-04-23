@@ -14,19 +14,19 @@ function AddModal(props) {
             <Modal.Title>Add new employee</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Row>
+                <Row className='p-2'>
                     <Col className="col-auto">Name: </Col>
                     <Col><input className='form-control' type='text' onChange={(e)=>setEmployeeName(e.target.value)} /></Col>
                 </Row>
-                <Row>
+                <Row className='p-2'>
                     <Col className="col-auto">Company Name: </Col>
                     <Col><input className='form-control' type='text' onChange={(e)=>setEmployeeCompany(e.target.value)}/></Col>
                 </Row>
-                <Row>
+                <Row className='p-2'>
                     <Col className="col-auto">Catchphrase: </Col>
                     <Col><input className='form-control' type='text' onChange={(e)=>setEmployeeCatchphrase(e.target.value)} /></Col>
                 </Row>
-                <Row>
+                <Row className='p-2'>
                     <Col className="col-auto">Phone: </Col>
                     <Col><input className='form-control' type='number' onChange={(e)=>setEmployeePhone(e.target.value)} /></Col>
                 </Row>

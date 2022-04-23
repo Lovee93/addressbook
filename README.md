@@ -1,4 +1,22 @@
-# Getting Started with Create React App
+# Address Book
+## Challenge
+This project is an implementation of following task: 
+We would like you to implement an Address Book for a Retail Branch Manager that holds employee names, phone number and their department.
+
+### Acceptance Criteria:
+
+As a Branch Manager, I want to be able to add a new employee (first name, last name, department and a single phone number). I want to be able to search for staff members by their department. I want to be able to search for staff members by name. I want to be able to delete an employee. I want the ability to sort all staff alphabetically by surname.
+
+## Assumptions and other details about the solution:
+- I have used [Json Placeholder](https://jsonplaceholder.typicode.com/) to fetch some dummy users.
+- These users are employees - there are no separate first and last names, but single name field.
+- There are no departments, but companies instead.
+- So search is available on name and companies.
+- Similarly, sorting is on name only.
+- Adding and deleting employees is simply handled by states and there's no actual API call for that. 
+
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
