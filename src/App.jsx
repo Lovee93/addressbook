@@ -1,10 +1,13 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import SearchField from './components/SearchField';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import EmployeeCard from './components/EmployeeCard';
 import DeleteModal from './components/DeleteModal';
 import AddModal from './components/AddModal';
+import particlesOptions from "./particles.json";
+import Particles from "react-tsparticles";
+import { loadFull } from "tsparticles";
 
 function App() {
   const [employees, setEmployees] = useState("");
@@ -13,7 +16,12 @@ function App() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
   const [filterBy, setFilterBy] = useState("Name");
-  const [sortBy, setSortBy] = useState("")
+  const [sortBy, setSortBy] = useState("");
+  const [showParticles, setShowParticles] = useState(false)
+
+  const particlesInit = useCallback(main => {
+    loadFull(main);
+  }, [])
 
   const [employeeToDelete, setEmployeeToDelete] = useState("")
 
@@ -57,6 +65,7 @@ function App() {
     }
     setEmployees(prevState => {return [...prevState, newEmployee]})
     toggleAddModal();
+    setShowParticles(true)
   }
 
   const handleFilter = (e) => {
@@ -123,9 +132,18 @@ function App() {
   // useEffect(() => {
   //   getAllEmployees().then(res => setEmployees(res));
   // }, [])
+  useEffect(() => {
+    if(showParticles){
+      const interval = setInterval(() => {
+        setShowParticles(false)    
+      }, 4000);
+      return () => clearInterval(interval);
+    }
+  },[showParticles])
 
   return (
     <div className="App">
+      { showParticles && <Particles options={particlesOptions} init={particlesInit}/> }
       <header className="App-header">
         Address Book
       </header>
